@@ -19,10 +19,13 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(PlayerServiceImpl.class);
 
-    @Autowired 
-    PlayerRepository playerRepository;
-    
-    @Override 
+    private PlayerRepository playerRepository;
+
+    public PlayerServiceImpl(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
+
+    @Override
     public List<Player> getAllPlayersOrderByRank() {
         try {
             LOGGER.info("Récupération de tous les joueurs triée du meilleur au moins bon (on se basant sur le rank)");
@@ -70,8 +73,7 @@ public class PlayerServiceImpl implements PlayerService {
             Double medianHeight = playerRepository.calculateMedianHeight();
 
             // Créer la réponse
-            StatisticResponseDto response = new StatisticResponseDto(countryWithHighestWinRatio, averageIMC, medianHeight);
-            return response;
+            return new StatisticResponseDto(countryWithHighestWinRatio, averageIMC, medianHeight);
         } catch (Exception e) {
             String message = "Une erreur s'est produite lors de la récupération des statistiques des joueurs";
             LOGGER.error(message, e);

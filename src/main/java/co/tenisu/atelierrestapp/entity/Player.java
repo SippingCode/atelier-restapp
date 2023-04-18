@@ -19,15 +19,3 @@ public class Player {
     @Embedded
     private PlayerData data;
 }
-
-@Embeddable
-@Data
-class PlayerData {
-    private Integer rank; // Le classement du joueur
-    private Integer points;
-    private Integer weight;
-    private Integer height;
-    private Integer age;
-    @ElementCollection
-    private List<Integer> last;
-}
